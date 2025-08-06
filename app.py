@@ -46,11 +46,7 @@ with st.sidebar:
     - Contact Shared N/A: Treated as unfavorable
     - Last Interaction Days N/A: Treated as fresh lead (0 days)
     
-    **WhatsApp Integration:**
-    - Automatic sending available with WhatsApp Cloud API
-    - Manual links generated as fallback
-    - Setup instructions provided below
-    """)
+  )
 
 def validate_excel_columns(df):
     """Validate that the Excel file contains all required columns"""
@@ -83,12 +79,6 @@ def get_risk_emoji(risk_score):
         'Low': '🟢'
     }
     return emoji_map.get(risk_score, '⚪')
-
-# WhatsApp API Configuration Check
-whatsapp_configured = whatsapp_sender.is_configured()
-
-if not whatsapp_configured:
-    st.warning("⚠️ WhatsApp API not configured. Messages will use manual links only. See setup instructions at the bottom.")
 
 # File upload section
 st.header("📁 Upload Excel File")
@@ -426,15 +416,6 @@ else:
         
         sample_df = pd.DataFrame(sample_data)
         st.dataframe(sample_df, use_container_width=True)
-
-# WhatsApp API Setup Instructions
-if not whatsapp_configured:
-    st.markdown("---")
-    st.header("📲 WhatsApp API Setup")
-    
-    with st.expander("🔧 Click here for WhatsApp Cloud API setup instructions", expanded=False):
-        setup_instructions = whatsapp_sender.get_setup_instructions()
-        st.markdown(setup_instructions)
 
 # Footer
 st.markdown("---")

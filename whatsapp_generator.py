@@ -39,20 +39,28 @@ def generate_whatsapp_message(lead_name, risk_score):
         }
         
         prompt = f"""
-        You are a sales outreach specialist. Generate a personalized WhatsApp message for a lead named "{lead_name}" 
+        You are a sales outreach specialist. Generate a UNIQUE, personalized WhatsApp message for a lead named "{lead_name}" 
         who has been categorized as "{risk_score}" risk.
         
         Context for {risk_score} risk: {risk_context.get(risk_score, '')}
         
+        IMPORTANT: Create a UNIQUE message that varies significantly from other messages. Use different:
+        - Conversation starters (Hi/Hey/Hello/Good day)
+        - Phrasing and sentence structure
+        - Call-to-action approaches
+        - Time references (today/tomorrow/this week/soon)
+        - Conversation tone (casual/professional/friendly)
+        
         Guidelines:
         - Keep the message under 160 characters for WhatsApp
         - Use a friendly, professional tone
-        - Include the lead's name
+        - Include the lead's name naturally
         - Make it conversational and not too salesy
         - For High risk: Be more direct and suggest immediate action
         - For Medium risk: Be encouraging and suggest this week
         - For Low risk: Be friendly and confirmatory
         - Don't use excessive punctuation or emojis
+        - Vary the message structure and wording significantly
         
         Generate only the message text, no quotes or additional formatting.
         """
@@ -60,11 +68,11 @@ def generate_whatsapp_message(lead_name, risk_score):
         response = openai_client.chat.completions.create(
             model="gpt-4o",  # the newest OpenAI model is "gpt-4o" which was released May 13, 2024.
             messages=[
-                {"role": "system", "content": "You are a helpful sales outreach specialist who creates personalized, concise WhatsApp messages."},
+                {"role": "system", "content": "You are a creative sales outreach specialist who creates unique, personalized WhatsApp messages. Never repeat the same phrasing or structure. Always vary your approach significantly for each lead."},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=100,
-            temperature=0.7
+            temperature=0.9  # Increased temperature for more variation
         )
         
         generated_message = response.choices[0].message.content

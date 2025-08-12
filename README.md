@@ -1,2 +1,2 @@
 # leadgenius
-AI Agent that understands lead behaviour, does risk categorisation and generates AI nudges using GPT
+AI Agent that understands lead behaviour, does risk categorisation and generates personalised AI nudges using GPT
